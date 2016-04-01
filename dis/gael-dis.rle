@@ -34,7 +34,7 @@ LIST EOS = (<<<) (sent); # end and beg. of sentence. for vislcg.
 
 LIST COMMA = "<,>" ;
 # Todo
-LIST PUNCT-INT = (Punct Int) (Punct Bar) (Punct Brack);
+LIST PUNCT-INT = (Punct Int) (Punct Bar) (lpar) (rpar);
 
 LIST CLB = (rel) (cnjcoo) (cnjsub) (cmpl) ;
 SETS
@@ -215,8 +215,8 @@ SELECT (pr) IF (0 ("<dar>") OR ("<Dar>")) (1C (n) OR NOUN-PREMOD);
 
 # ar sise/seisean/
 # dont use Prop Noun as too many many Prep + Placenames/Orgn.
-SELECT (vblex) IF (0 ("<ar>") OR ("<Ar>")) (1 (Sbj));
-REMOVE (vblex) IF (0 ("<ar>") OR ("<Ar>")) (NOT 1 (Sbj) OR ("mé"));
+SELECT (vblex) IF (0 ("<ar>") OR ("<Ar>")) (1 (subj));
+REMOVE (vblex) IF (0 ("<ar>") OR ("<Ar>")) (NOT 1 (subj) OR ("mé"));
 
 # a bheag nó/ná a mhór
 SELECT (det pos) (1 ("mór")) (0 ("a"));
@@ -225,7 +225,7 @@ SELECT (n) (0 ("mór")) (-1 ("a"));
 # Cop: is/ní dóigh
 # Prep: ar/sa/ón ndóigh/dhóigh/dóigh
 # Conj: ach/agus dóigh
-SELECT (n) IF (0 ("<dóigh>") OR ("<dhóigh>") OR ("<ndóigh>")) (NOT 1 (Sbj)) (-1 (cop) OR (pr) OR (Conj));
+SELECT (n) IF (0 ("<dóigh>") OR ("<dhóigh>") OR ("<ndóigh>")) (NOT 1 (subj)) (-1 (cop) OR (pr) OR (Conj));
 
 # some De Names commonly found in the corpus ...
 SELECT (Part Pat) (0 ("de")) (1 ("<Valera>") OR ("<Brún>") OR ("<hÍde>") OR ("<Niro>") OR ("<Róiste>") OR ("<Cléir>") OR ("<Spáinn>"));
@@ -367,8 +367,8 @@ SELECT (vbser) IF (0 ("<Bhí>")) (NOT -1 (det def));
 
 # -------------- @END ADDED CW 09/08 --------------
 
-SELECT (vblex) IF (1 (Sbj));
-REMOVE (vblex aut) IF (1C (Sbj));
+SELECT (vblex) IF (1 (subj));
+REMOVE (vblex aut) IF (1C (subj));
 
 # TYPE 1
 # it is a negative form of verb if it is preceded by a neg verb part
@@ -400,7 +400,7 @@ REMOVE (vblex itg) IF (NOT -1 (itg));
 
 # e.g. rith sé amach: sé=verbsubj pron => rith = verb
 # NOTE that rith can not be the imperative form
-REMOVE (vblex imp) IF (1 (Sbj));	# 1 SEP
+REMOVE (vblex imp) IF (1 (subj));	# 1 SEP
 
 # neg particle for imperative form is "ná", not "níor" etc.
 REMOVE (vblex imp neg) IF ( NOT -1 ("ná")) ;
@@ -2065,11 +2065,11 @@ SELECT (vblex) IF (-1 (rel)) (@1 (prn itg)) (NOT *-1 (vblex)) (NOT *1 (vblex));
 # e.g. má mheastar/Verb gur/Cop dóigh leis
 # a cheapadh/VN gur/Cop chol ceathracha iad 
 # e.g. má mheas/Verb sí gur/Cop dóigh leis
-REMOVE (cop) IF (NOT 0 (Cop Dep)) (-1C (vblex) OR (Sbj) OR (vblex subst));
+REMOVE (cop) IF (NOT 0 (Cop Dep)) (-1C (vblex) OR (subj) OR (vblex subst));
 
 # copula doesnt PRECEDE a verb
 # or verb subject pron (sí, sé, siad)
-REMOVE (cop) IF (1C (vblex) OR (Sbj) OR (vblex subst));
+REMOVE (cop) IF (1C (vblex) OR (subj) OR (vblex subst));
 
 # ==================================================================== #
 # SECTION 3
@@ -2273,7 +2273,7 @@ SELECT (Pron Dem) IF (-1 (pr));
 # S5 VERBS
 # -------------------------------------------------------------------- #
 # If there are a choice of inflected verb forms remaining - choose the autonomous one ....????
-SELECT (vblex aut) IF (0C (vblex)) (NOT 1 (Sbj) OR (np));
+SELECT (vblex aut) IF (0C (vblex)) (NOT 1 (subj) OR (np));
 # -------------------------------------------------------------------- #
 # S5 NOUNS
 # -------------------------------------------------------------------- #
