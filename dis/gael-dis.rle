@@ -441,7 +441,7 @@ REMOVE (vblex)  IF (0 ("<níos>")) (1 (adj) OR (adv));
 # verb interpretation will be removed.
 # This will erase most misinterpretations, as 'man' is much more
 # common than the verb "fear".
-REMOVE (vblex) IF (0 ("fear")) (NOT 1 (prn pers) OR (np));
+REMOVE (vblex) IF (0 ("fear")) (NOT 1 (prn pers) OR (prn subj) OR (np));
 
 # Avoid that "cumann" is interpreted as a form of "cum"
 # in "Cumann na Talún", "cumann rugbaí", etc.
@@ -768,7 +768,7 @@ SELECT (part vb rel indirect) IF (0 ("a")) ( 1C (Verb Ecl)) ;
 # DEPENDANT FORMS also follow rel particles
 SELECT (part vb rel indirect) IF ( 1 (Verb Dep));
 # Added CW 11/08
-SELECT (part inf) IF (0 ("<a>")) (1 (vblex subst len)) (NOT 2 (n) OR (prn pers) OR (det def));
+SELECT (part inf) IF (0 ("<a>")) (1 (vblex subst len)) (NOT 2 (n) OR (prn pers) OR (det def) OR (prn subj) OR (prn obj));
 # End Added CW 11/08
 # Ar shíl/inis/thomhais tú etc. where Verb/Noun ambiguity - choose verb if preceded by Ar at start of sentence (i.e. starts with cap)
 SELECT (Part Vb Q Past) IF (0 ("<Ar>")) (1 (vblex)) (2 (prn pers)) (NOT 2 ("í") OR ("é"));
@@ -1031,7 +1031,7 @@ SELECT (adj comp) IF (0 ("beo")) (NOT -2 ("<ní ba>"));
 
 # See S1 NOUN
 # Avoid that breac is interpreted as adjective "fuair sé breac"
-REMOVE (adj) IF (0 ("breac")) (-1 (prn pers)) (-2 (Verb VT));
+REMOVE (adj) IF (0 ("breac")) (-1 (prn pers) OR (prn subj)) (-2 (Verb VT));
 REMOVE (adj) IF (0 ("breac")) (-1 (Verb VT));
 
 # Avoid that "úire" is interpreted as genitive feminine of Adj "úr"
@@ -1251,7 +1251,7 @@ SELECT (vblex) IF (NOT *-1 (vblex)) (NOT *-1 (cop)) (NOT *1 (vblex));
 SELECT (vblex cni) IF (0C (vblex)) (-1 ("ná"));
 
 # labhair go soiléir OK but not labhair sé/Séan/an fear etc
-SELECT (vblex imp) IF (NOT 1 (n) OR (prn pers) OR NOUN-PREMOD);
+SELECT (vblex imp) IF (NOT 1 (n) OR (prn pers) OR (prn subj) OR NOUN-PREMOD);
 REMOVE (vblex imp) IF (1C (np));
 # -------------------------------------------------------------------- #
 # S2 VERBAL NOUNS
@@ -1536,7 +1536,7 @@ SELECT (n f nom) IF (0 ("uain")) (-2 ("tar")) (-1 (det pos));
 # "go bhfaighinn uain ar iad a léamh"
 SELECT (n f nom) IF (0 ("uain")) (-1 ("faigh"));
 # "Ní bhfuair mé uain a fháil amach"
-SELECT (n f nom) IF (0 ("uain")) (-2 ("faigh")) (-1 (prn pers));
+SELECT (n f nom) IF (0 ("uain")) (-2 ("faigh")) (-1 (prn pers) OR (prn subj));
 # select uain/com unless it could possible be genitive of uan
 SELECT (n f nom) IF (0 ("uain")) (-1 (det def)) (NOT -2 (n nom));
 
@@ -1602,6 +1602,7 @@ SELECT (n gen) IF (-1C (det def) ) (-2C (n)) (NOT -3 (det def));
 
 # it is a noun (not verbal) if preceded by a numeral
 # BUT exclude sé which is commonly a pronoun (he/it)
+SELECT NOUN-NOT-VN IF (-1 (num)) (NOT -1 ("prpers" prn pers));
 SELECT NOUN-NOT-VN IF (-1 (num)) (NOT -1 ("sé" prn pers));
 
 # it is a noun if preceded by an unambiguous prep (C=careful mode)
