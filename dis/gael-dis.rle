@@ -1023,16 +1023,16 @@ SELECT (Num Card) IF (0 ("aon")) (*1 ("amháin") BARRIER PUNCT-INT OR (pr)) ;
 REMOVE (Num Card) IF (0 ("aon")) (NOT *1 ("amháin") BARRIER PUNCT-INT OR (pr)) (NOT -1 ("a")) ;
 
 # a sé/NumCard a chlog
-SELECT (Num Card) IF (1 ("<a>")) (2 ("clog"));
+SELECT (num card) IF (1 ("<a>")) (2 ("clog"));
 # an dó chlog ar maidin
-SELECT (Num Card) IF (1 ("clog"));
+SELECT (num card) IF (1 ("clog"));
 # a sé/NumCard a ' chlog
-SELECT (Num Card) IF (2 (Punct)) (3 ("clog"));
-SELECT (Num Card) IF (-1C (Part Nm));
+SELECT (num card) IF (2 (Punct)) (3 ("clog"));
+SELECT (num card) IF (-1C (Part Nm));
 #GÓD Bhí sé fhear sa theach. Sé cannot be a pronoun if followed by a lenited noun.
-SELECT (Num Card) IF (0 ("<sé>")) (1C (Noun Len));
+SELECT (num card) IF (0 ("<sé>")) (1C (n len));
 #GÓD Bhí sé sé mhí san Aifric. Personal pronouns do not trigger eclipsis.
-REMOVE (Num Card Ecl) IF (-1 (Pron Pers))
+REMOVE (num card ecl) IF (-1 (prn pers));
 # -------------- @ADDED CW 09/08 --------------
 
 # Avoid that "seasca" is interpreted as plural of "seasc" (barren, unfruitful)
@@ -1973,10 +1973,14 @@ SELECT (det pos p3 m sg) IF (-1 (Pron Pers Masc) OR (n m)) (1 (vblex subst));
 SELECT (det pos p3 f sg) IF (-1 (Pron Pers Fem) OR (n f)) (1 (vblex subst));
 SELECT (det pos p3 pl) IF (-1 (Pron Pers Pl)) (1 (vblex subst));
 #GÓD Match attributes of Verbal Noun with those of Prep Poss e.g. Len, bare or Ecl
-SELECT (vblex subst len) IF (-1 (Prep Poss Masc));
-REMOVE (vblex subst len) IF (-1 (Prep Poss Fem));
-REMOVE (vblex subst ecl) IF (-1 (Prep Poss Fem));
-SELECT (vblex subst ecl) IF (-1 (Prep Poss Pl));
+#SELECT (vblex subst len) IF (-1 (Prep Poss Masc));
+#REMOVE (vblex subst len) IF (-1 (Prep Poss Fem));
+#REMOVE (vblex subst ecl) IF (-1 (Prep Poss Fem));
+#SELECT (vblex subst ecl) IF (-1 (Prep Poss Pl));
+SELECT (vblex subst len) IF (-1/-1 (pr)) (-1/-2 (det pos m));
+REMOVE (vblex subst len) IF (-1/-1 (pr)) (-1/-2 (det pos f));
+REMOVE (vblex subst ecl) IF (-1/-1 (pr)) (-1/-2 (det pos f));
+SELECT (vblex subst ecl) IF (-1/-1 (pr)) (-1/-2 (det pos pl));
 
 #SELECT (pos p3 pl) IF ( 1C (n ecl) OR (vblex subst));
 SELECT (pos p3 m sg) IF ( 1C (n len) OR (vblex subst)) (NOT 1C (n voc));
@@ -2388,9 +2392,12 @@ REMOVE (Ecl) IF (-2 (Punct Fin))(0 (Verb PresInd));
 REMOVE ("tí") IF (0 (Noun Masc Gen Sg));
 SELECT (Det Poss Sg) IF (2 (Pron Prep Sg));
 REMOVE (Noun Ecl) IF (-1 (Det Poss Sg)); 
-SELECT (Prep Poss 3P Sg Fem) IF (1 ("deirfiúr"));
+#SELECT (Prep Poss 3P Sg Fem) IF (1 ("deirfiúr"));
+SELECT (1/-2 det pos p3 f sg) IF (1 ("deirfiúr"));
 REMOVE (Noun Gen) IF (-1 ("beirt"));
 REMOVE (cop) IF (1 (Punct));
+#SELECT (Prep Poss Sg) IF (NOT 1 (Noun Ecl)); #  ní fhaigheann Máire freagra dá ceist.
+#REMOVE (Prep Poss Masc) IF (NOT 1 (Noun Len)); #  ní fhaigheann Máire freagra dá ceist.
 SELECT (Prep Poss Sg) IF (NOT 1 (Noun Ecl)); #  ní fhaigheann Máire freagra dá ceist.
 REMOVE (Prep Poss Masc) IF (NOT 1 (Noun Len)); #  ní fhaigheann Máire freagra dá ceist.
 SELECT ("do") IF (0 ("<dá>"))(1 ("ceist")); #  ní fhaigheann Máire freagra dá ceist.
