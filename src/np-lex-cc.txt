@@ -144,6 +144,7 @@ LEXICON NpSéUrú
 +Com+Sg:	#; 
 +Gen+Sg+Len:^IM^Sé		#; 
 +Gen+Pl+Ecl:^IM^Urú		#;
++Com+Sg+hPref:^IM^hve		#;  ! le hAaron
 
 LEXICON NpSéUrú-EN
 +Com+Sg:	#; 
