@@ -1,0 +1,25 @@
+LEXICON NounsH
+mótarfheithicil	Nf2-7;	! motor vehicle
+fomhír	Nf2-6;	! sub-item
+imthoisc	Nf2-12;	! circumstance
+dobharshaothrú	Nm5-3;	! aquaculture
+uisceshaothrú	Nm5-3;	! aquaculture
+atreisiú	Nm5-3;	! reinforcement
+mótarbhád	Nm1-1;	! motorboat
+móruasal	Nm1-9;	! magnate; móruaisle - nobility
+mór-uasal	Nm1-9;	! variant of móruasal
+
+
+!!! other forms
+dobharshaothraithe	Adj3-1; ! aquaculture
+digiteach	Adj1-3;	! digital
+atreisithe+Verbal+Adj:atreisithe	VA-INIT;
+atreisiú+Verbal+Noun+VTI+Gen:atreisithe	VN-INIT;
+atreisiú+Verbal+Noun+VTI:atreisiú	VN-INIT;
+atreisigh+Verb+VTI:atreisigh	V2-SL;	! reinforce
+bainistigh+Verb+VT:bainistigh	V2-SL;	! manage
+bainistithe+Verbal+Adj:bainistithe	VA-INIT;
+bainistiú+Verbal+Noun+VT+Gen:bainistithe	VN-INIT;
+bainistiú+Verbal+Noun+VT:bainistiú	VN-INIT;
+!unhousing	dístórasú
+!housing	stórasú
